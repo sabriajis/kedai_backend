@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'User Forms')
+@section('title', 'Edit User')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,7 +16,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>User Forms</h1>
+                <h1>Advanced Forms</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Forms</a></div>
@@ -30,7 +30,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('user.update' , $user) }}" method="POST">
+                    <form action="{{ route('user.update', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -39,11 +39,29 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+                                <input type="text"
+                                    class="form-control @error('name')
+                                is-invalid
+                            @enderror"
+                                    name="name" value="{{ $user->name }}">
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+                                <input type="email"
+                                    class="form-control @error('email')
+                                is-invalid
+                            @enderror"
+                                    name="email" value="{{ $user->email }}">
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
@@ -67,22 +85,24 @@
                             </div>
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="text" name="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
+                                <input type="number" class="form-control" name="phone" value="{{ $user->phone }}">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Roles</label>
+                                <label class="form-label">Role</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="ADMIN" {{ $user->role == 'admin' ? 'selected' : '' }} class="selectgroup-input"
-                                            checked="" >
+                                        <input type="radio" name="role" value="admin" class="selectgroup-input"
+                                            @if ($user->role == 'admin') checked @endif>
                                         <span class="selectgroup-button">Admin</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="STAFF" {{ $user->role == 'dosen' ? 'selected' : '' }} class="selectgroup-input">
+                                        <input type="radio" name="role" value="staff" class="selectgroup-input"
+                                            @if ($user->role == 'staff') checked @endif>
                                         <span class="selectgroup-button">Staff</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="USER" {{ $user->role == 'mahasiswa' ? 'selected' : '' }} class="selectgroup-input">
+                                        <input type="radio" name="role" value="user" class="selectgroup-input"
+                                            @if ($user->role == 'user') checked @endif>
                                         <span class="selectgroup-button">User</span>
                                     </label>
 
@@ -90,7 +110,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <button class="btn btn-primary">Update</button>
+                            <button class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>

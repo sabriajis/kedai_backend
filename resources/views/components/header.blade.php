@@ -18,9 +18,9 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
                 {{-- <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon"> --}}
-                <a href="#" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
-                </a>
+                    <a href="{{ route('user.profil', auth()->user()->id) }}" class="dropdown-item has-icon">
+                        <i class="far fa-user"></i> Profile
+                    </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                     class="dropdown-item has-icon text-danger">
